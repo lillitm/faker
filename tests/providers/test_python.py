@@ -106,3 +106,16 @@ class TestPystrFormat(unittest.TestCase):
                 assert value.count('barbar') == 3
                 assert mock_foo.call_count == 3
                 mock_bothify.assert_called_once_with('barbar?#?barbar?#?barbar', letters='abcde')
+
+
+class TestPydict(unittest.TestCase):
+    def setUp(self):
+        self.fake = Faker()
+        Faker.seed(0)
+
+    def test_fixed_nb_elements(self):
+        nb_elements = [800]
+
+        for nb in nb_elements:
+            result = self.fake.pydict(nb_elements=nb, variable_nb_elements=False)
+            self.assertEqual(len(result), nb)
